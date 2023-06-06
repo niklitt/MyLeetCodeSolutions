@@ -3,7 +3,7 @@ import org.litt.MergeTwoSortedLists.Solution;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-@Test()
+@Test
 public class MergeTwoSortedListsTest {
 
     @Test
