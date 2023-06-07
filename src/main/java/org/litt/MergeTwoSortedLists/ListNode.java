@@ -1,5 +1,8 @@
 package org.litt.MergeTwoSortedLists;
 
+/**
+ * Will likely be used in other problems/solutions
+ */
 public class ListNode {
     public int val;
     public ListNode next;
