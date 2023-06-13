@@ -1,5 +1,5 @@
-import org.litt.MergeTwoSortedLists.ListNode;
-import org.litt.MergeTwoSortedLists.Solution;
+import org.litt.mergeTwoSortedLists.ListNode;
+import org.litt.mergeTwoSortedLists.Solution;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

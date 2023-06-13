@@ -1,4 +1,4 @@
-package org.litt.MergeTwoSortedLists;
+package org.litt.mergeTwoSortedLists;
 
 /**
  * Definition for singly-linked list.
