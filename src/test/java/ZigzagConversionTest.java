@@ -4,6 +4,19 @@ import org.testng.annotations.Test;
 
 public class ZigzagConversionTest {
 
+
+    @Test
+    public void Zigzag1() {
+        String input = "PAYPALISHIRING";
+        int numRows = 1;
+        System.out.println("input is: " + input);
+        System.out.println("numRows is: " + numRows);
+        String expected = "PAYPALISHIRING";
+        System.out.println("expected is: " + expected);
+        String actual = Solution.convert(input, numRows);
+        System.out.println("actual is: " + actual);
+        Assert.assertEquals(actual,expected);
+    }
     @Test
     public void Zigzag2() {
         String input = "PAYPALISHIRING";
