@@ -9,31 +9,42 @@ public class Solution {
     public static String convert(String s, int numRows) {
         char[] chars = s.toCharArray();
         StringBuilder stringBuilder = new StringBuilder();
-        List<Integer> lastIteration = new ArrayList<>(List.of(0));
+        List<Boolean> lastIteration = new ArrayList<>(List.of(false));
         for (int currRow = 0; currRow < numRows; currRow++) {
             for (int i = currRow; i < chars.length; i = doMath(i, numRows, currRow, lastIteration)) {
                 stringBuilder.append(chars[i]);
             }
-            lastIteration.add(0);
+            lastIteration.add(false);
         }
         return stringBuilder.toString();
     }
 
-    private static int doMath(int iteration, int numRows, int currRow, List<Integer> lastIteration) {
+    private static int doMath(int iteration, int numRows, int currRow, List<Boolean> lastIteration) {
         if(numRows <= 2) {
             return iteration + numRows;
         } else {
-            if (lastIteration.get(lastIteration.size() - 1) != 0) {
-//                lastIteration.add();
+            int totalRows = numRows - 1;
+            if (lastIteration.get(lastIteration.size() - 1) || totalRows == currRow || totalRows - currRow == totalRows) {
+                // Last iteration was a "big" one so just normally add rows
+                int howCloseToBottom = totalRows - currRow;
+                System.out.println("how close to bottom: " + howCloseToBottom);
+                lastIteration.add(false);
+                System.out.println("iteration val: " + iteration);
+                System.out.println("total curr val: " + (iteration + (numRows * 2)));
+                System.out.println("iteration only: " + (numRows * 2));
+                System.out.println();
+                return iteration + (totalRows * 2);
             } else {
-                lastIteration.add(0);
+                // Last iteration was a normal one so perform logic to get next value
+                int howCloseToBottom = totalRows - currRow;
+                System.out.println("how close to bottom: " + howCloseToBottom);
+                lastIteration.add(true);
+                System.out.println("iteration val: " + iteration);
+                System.out.println("total curr val: " + (iteration + (numRows * 2)));
+                System.out.println("iteration only: " + (numRows * 2));
+                System.out.println();
+                return iteration + (howCloseToBottom * 2);
             }
-//            int howCloseToEdge = (int) Math.max(0, currRow % ( Math.ceil((double) numRows / 2) + 1));
-            numRows = numRows - 1;
-            int howCloseToEdge = (numRows - currRow) % (numRows - (numRows/2));
-            System.out.println("how close to edge: " + howCloseToEdge);
-//            return iteration + numRows + (numRows - currRow - 2);
-            return iteration + numRows;
         }
 
     }
