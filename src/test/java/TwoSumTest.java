@@ -14,6 +14,6 @@ public class TwoSumTest {
         System.out.println("expected is: " + Arrays.toString(expected));
         int[] actual = Solution.twoSum(nums, 9);
         System.out.println("actual is: " + Arrays.toString(actual));
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals(actual,expected);
     }
 }
