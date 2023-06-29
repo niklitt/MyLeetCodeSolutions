@@ -1,5 +1,7 @@
 package org.litt.threeSum;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +23,22 @@ public class Solution {
                 }
             }
         }
-        return finalList;
+        return checkForDupes(finalList);
+    }
+
+    private static List<List<Integer>> checkForDupes(List<List<Integer>> checkingList) {
+        List<List<Integer>> list = new ArrayList<>();
+        for(int i = 0; i < checkingList.size() - 1; i++) {
+            for(int j = i + 1; j < checkingList.size(); j++) {
+//                if (checkingList.get(i).containsAll(checkingList.get(j)) && checkingList.get(j).containsAll(checkingList.get(i))) {
+                if (CollectionUtils.isEqualCollection(checkingList.get(i), checkingList.get(j))) {
+                    System.out.println("found two lists with same elements" + checkingList.get(i) + "\n" +checkingList.get(j));
+                    System.out.println("The current checkingList is: " + checkingList);
+                    checkingList.remove(checkingList.get(j));
+                    System.out.println("The checkingList with the val removed is: " + checkingList);
+                }
+            }
+        }
+        return checkingList;
     }
 }
