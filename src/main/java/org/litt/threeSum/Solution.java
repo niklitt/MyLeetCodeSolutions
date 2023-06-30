@@ -23,22 +23,27 @@ public class Solution {
                 }
             }
         }
+        if (finalList.isEmpty()) {
+            return finalList;
+        }
         return checkForDupes(finalList);
     }
 
     private static List<List<Integer>> checkForDupes(List<List<Integer>> checkingList) {
-        List<List<Integer>> list = new ArrayList<>();
-        for(int i = 0; i < checkingList.size() - 1; i++) {
-            for(int j = i + 1; j < checkingList.size(); j++) {
-//                if (checkingList.get(i).containsAll(checkingList.get(j)) && checkingList.get(j).containsAll(checkingList.get(i))) {
-                if (CollectionUtils.isEqualCollection(checkingList.get(i), checkingList.get(j))) {
-                    System.out.println("found two lists with same elements" + checkingList.get(i) + "\n" +checkingList.get(j));
-                    System.out.println("The current checkingList is: " + checkingList);
-                    checkingList.remove(checkingList.get(j));
-                    System.out.println("The checkingList with the val removed is: " + checkingList);
+        List<List<Integer>> noDupList = new ArrayList<>();
+        noDupList.add(checkingList.get(0));
+        for(int i = 1; i < checkingList.size(); i++) {
+            boolean foundDup = false;
+            for(int j = 0; j < i; j++) {
+                if (checkingList.get(i).containsAll(checkingList.get(j))) {
+                    System.out.println("found two lists with same elements " + checkingList.get(i) + "\n" +checkingList.get(j));
+                    foundDup = true;
+                }
+                if (j + 1 == i && !foundDup) {
+                    noDupList.add(checkingList.get(i));
                 }
             }
         }
-        return checkingList;
+        return noDupList;
     }
 }
