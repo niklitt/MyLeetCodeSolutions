@@ -2,7 +2,6 @@ package org.litt.threeSum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Solution {
@@ -15,10 +14,18 @@ public class Solution {
                     if (nums[i] + nums[j] + nums[k] == 0) {
 //                        finalList.add(Arrays.asList(nums[i], nums[j], nums[k]));
                         List<Integer> temp = Arrays.asList(nums[i], nums[j], nums[k]);
-                        if(!finalList.contains(temp)) {
-                            Collections.synchronizedList()
+                        if(finalList.size() == 0) {
                             finalList.add(temp);
                         }
+                        for (int internal = 0; internal < finalList.size(); internal++) {
+                            if(finalList.get(internal).containsAll(temp) && temp.containsAll(finalList.get(internal))) {
+//                                System.out.println("contains so not adding: " + temp);
+                                break;
+                            } else if(internal + 1 == finalList.size()) {
+                                finalList.add(temp);
+                            }
+                        }
+
                     }
                 }
             }
