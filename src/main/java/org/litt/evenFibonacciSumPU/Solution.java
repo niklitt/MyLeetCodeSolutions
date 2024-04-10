@@ -13,22 +13,22 @@ public class Solution {
     public static int calculate(int limit) {
         // initialize the final sum value and the fibonacci list. Starting sum as two because that will not be traversed over
         int sum = 2;
-        List<Integer> fibonacci = new ArrayList<>();
-        fibonacci.add(1);
-        fibonacci.add(2);
 
         // This will be used to minimize calculations as a temp value
         int currentValue = 0;
+        int firstVal = 1;
+        int secondVal = 2;
 
-        while(fibonacci.get(fibonacci.size() - 1) < limit) {
-            currentValue = (fibonacci.get(fibonacci.size() - 1)) + fibonacci.get(fibonacci.size() - 2);
-            fibonacci.add(currentValue);
+        // This approach resolves potential time complexity issues. You only really ever need two most recent values
+        while(currentValue < limit) {
+            currentValue = firstVal + secondVal;
+            firstVal = secondVal;
+            secondVal = currentValue;
             if (currentValue % 2 == 0) {
                 sum += currentValue;
             }
         }
 
-        // TODO: Can be optimized by getting rid of list and just making two variables that get changed over and over
         return sum;
     }
 
