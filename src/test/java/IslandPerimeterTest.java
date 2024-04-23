@@ -15,6 +15,14 @@ public class IslandPerimeterTest {
     }
 
     @Test
+    public void testGetIslandPerimeterShort() {
+        int[][] island = {{1,0}};
+        int actual = getIslandPerimeter(island);
+        int expected = 4;
+        Assert.assertEquals(actual,expected);
+    }
+
+    @Test
     public void testGetIslandPerimeterLong() {
         int[][] island = {{1,1,1,1}};
         int actual = getIslandPerimeter(island);
