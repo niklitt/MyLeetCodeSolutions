@@ -6,29 +6,53 @@ import java.util.Map;
 public class Solution {
 
     public static int calculate(int n) {
-        Map<Integer,Boolean> integerBooleanMap = new HashMap<>();
-
-        for (int i = 1; i < n; i++) {
-            integerBooleanMap.put(i, null);
-        }
-
-        return sumOfAmicable(checkAmicable(integerBooleanMap, n), n);
+        return sumOfAmicable(checkAmicable(n));
     }
 
-    private static Map<Integer,Boolean> checkAmicable(Map<Integer,Boolean> map, int n) {
+    private static Map<Integer,Boolean> checkAmicable(int n) {
+        Map<Integer,Boolean> map = new HashMap<>();
+
+        for (int i = 1; i < n; i++) {
+            map.put(i, null);
+        }
+
+        // Using these values to determine if amicable or not
+        int firstSum = 0, secondSum = 0, currKey = 0;
+
+        // Loop through each entry in map
         for (Map.Entry<Integer, Boolean> entry : map.entrySet()) {
-            if (n % entry.getKey() != 0) {
-                map.replace(entry.getKey(), false);
-            } else if (isAmicable(entry.getKey())){
-                map.replace(entry.getKey(), true);
-            } else {
-                map.replace(entry.getKey(), false);
+            currKey = entry.getKey();
+            firstSum = 0;
+            secondSum = 0;
+
+            // Only do the check if value does not exist
+            if (entry.getValue() == null) {
+
+                for (int i = 1; i < currKey; i++) {
+                    if (currKey % i == 0) {
+                        firstSum += i;
+                    }
+                }
+
+                for (int i = 1; i < firstSum; i++) {
+                    if (firstSum % i == 0) {
+                        secondSum += i;
+                    }
+                }
+
+                if (currKey == secondSum && firstSum != secondSum) {
+                    System.out.println("Current key being added is: " + currKey);
+                    map.replace(currKey, true);
+                } else {
+                    map.replace(currKey, false);
+                }
+
             }
         }
         return map;
     }
 
-    private static int sumOfAmicable(Map<Integer,Boolean> map, int n) {
+    private static int sumOfAmicable(Map<Integer,Boolean> map) {
         int sum = 0;
 
         for (Map.Entry<Integer, Boolean> entry : map.entrySet()) {
@@ -38,24 +62,6 @@ public class Solution {
         }
 
         return sum;
-    }
-
-    private static Boolean isAmicable(int val) {
-        int firstSum = 0, secondSum = 0;
-
-        for (int i = 1; i < val; i++) {
-            if (val % i == 0) {
-                firstSum += i;
-            }
-        }
-
-        for (int i = 1; i < firstSum; i++) {
-            if (firstSum % i == 0) {
-                secondSum += i;
-            }
-        }
-
-        return firstSum == secondSum;
     }
 
     public static void main(String[] args) {
