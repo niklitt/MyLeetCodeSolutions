@@ -3,9 +3,7 @@ package org.litt.namesScoresPU;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Approach:
@@ -20,20 +18,25 @@ public class Solution {
 
     public static BigInteger calculate(String fileName) {
         BigInteger sum = BigInteger.valueOf(0);
-        List<String> names = new ArrayList<>();
 
         // Read names from file and add them to "names" list
+        String preparsedNames = null;
         try {
             File namesFile = new File(fileName);
             Scanner reader = new Scanner(namesFile);
-            while (reader.hasNextLine()) {
-                names.add(reader.nextLine());
-            }
+            preparsedNames = reader.nextLine();
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
+        // Parsing process. Assumes specific formatting
+        preparsedNames = preparsedNames.replace("\"", "");
+        String[] names = preparsedNames.split(",");
+
+        // Sorting
+        Arrays.sort(names);
 
         for (String name : names) {
             System.out.println("Current name: " + name);
@@ -41,11 +44,13 @@ public class Solution {
 
         char[] chars;
         int tempValue;
-        for (int i = 0; i < names.size(); i++) {
-            for (int j = 0; j < names.get(i).length(); j++) {
-                System.out.println("The current letter is: " + names.get(i).charAt(j));
-                System.out.println("And the value is: " + (int) names.get(i).charAt(j));
+        for (int i = 0; i < names.length; i++) {
+            tempValue = 0;
+            for (int j = 0; j < names[i].length(); j++) {
+                // Had to look at ASCII Table to get this value
+                tempValue += (names[i].charAt(j) - 64);
             }
+            sum = sum.add(BigInteger.valueOf((long) tempValue * (i + 1)));
         }
 
         return sum;
